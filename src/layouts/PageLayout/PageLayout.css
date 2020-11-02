@@ -1,0 +1,24 @@
+header {
+  background-color: #2980b9;
+}
+
+header .navbar-brand {
+  color: #fff !important;
+}
+
+header .navbar-brand:hover {
+  text-decoration: underline;
+}
+
+header .nav-link {
+  color: #fff !important;
+}
+
+header .nav-link:hover {
+  text-decoration: underline;
+}
+
+header .active {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=PageLayout.css.map */

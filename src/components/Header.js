@@ -7,7 +7,7 @@ import { Link } from 'react-router'
 class Header extends React.Component {
   constructor () {
     super()
-    this.state = {
+    this.state = { // state kullanicaksan class olusturulmali
       isNavOpen: false
     }
   }
@@ -23,14 +23,15 @@ class Header extends React.Component {
         <nav className=' container navbar navbar-expand-lg navbar-light justify-content-between'>
           <a className='navbar-brand' href='#'>
             {' '}
-            EGITIM REACT
+            REACT LOGIN FORM
           </a>
           <button
             className='navbar-toggler'
             type='button'
+            // eslint-disable-next-line react/jsx-no-bind
             onClick={this.buttonClicked.bind(this)}
           >
-            <span className='navbar-toggler-icon'></span>
+            <span className='navbar-toggler-icon'> </span>
           </button>
           <div
             className=' navbar-collapse'

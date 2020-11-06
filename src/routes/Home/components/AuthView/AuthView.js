@@ -22,11 +22,11 @@ class AuthView extends Component {
   }
   render () {
     return this.state.currentView === 1 ? (
-      <LoginView onChangeView={this.changeView.bind(this)} />
+      <LoginView onChangeView={() => this.changeView} />
     ) : this.state.currentView === 2 ? (
-      <SignUpView onChangeView={this.changeView.bind(this)} />
+      <SignUpView onChangeView={() => this.changeView} />
     ) : (
-      <PaswordView onChangeView={this.changeView.bind(this)} />
+      <PaswordView onChangeView={() => this.changeView} />
     )
   }
 }

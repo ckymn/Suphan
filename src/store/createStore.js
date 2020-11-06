@@ -1,4 +1,9 @@
-import { applyMiddleware, compose, createStore as createReduxStore } from 'redux'
+/* eslint-disable spaced-comment */
+import {
+  applyMiddleware,
+  compose,
+  createStore as createReduxStore
+} from 'redux'
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
@@ -16,6 +21,7 @@ const createStore = (initialState = {}) => {
   const enhancers = []
   let composeEnhancers = compose
 
+  // Redux Tool Kit devreye sokmak!
   if (__DEV__) {
     if (typeof window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ === 'function') {
       composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -23,21 +29,19 @@ const createStore = (initialState = {}) => {
   }
 
   // ======================================================
-  // Store Instantiation and HMR Setup
+  // Store Instantiation and HMR Setup (Store olustur)
   // ======================================================
   const store = createReduxStore(
     makeRootReducer(),
     initialState,
-    composeEnhancers(
-      applyMiddleware(...middleware),
-      ...enhancers
-    )
+    composeEnhancers(applyMiddleware(...middleware), ...enhancers)
   )
   store.asyncReducers = {}
 
-  // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
+  // To unsubscribe, invoke `store.unsubscribeHistory()` anytime //tarayici gecmisini application gecmsiinde tutuyor
   store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
 
+  //Burda sayfayi yeniledigimiz zaman store‘u bosaltmamaya yariyor
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       const reducers = require('./reducers').default

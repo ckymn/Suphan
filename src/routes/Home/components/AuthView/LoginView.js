@@ -34,7 +34,7 @@ class LoginView extends React.Component {
     })
   }
   render () {
-    const onChangeView = this.props.onChangeView
+    const { onChangeView } = this.props
     return (
       <div>
         {' '}

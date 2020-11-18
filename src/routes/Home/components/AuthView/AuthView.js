@@ -7,11 +7,11 @@ import SignUpView from './SignUpView'
 class AuthView extends Component {
   constructor () {
     super()
-    // 1 : giris Ekrani
-    // 2 : kayit Ekrani
+    // 1 : login Ekrani
+    // 2 : sign-up Ekrani
     // 3 : reset Ekrani
     this.state = {
-      currentView: 1
+      currentView: 2
     }
   }
 

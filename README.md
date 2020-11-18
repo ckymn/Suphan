@@ -1,2 +1,4 @@
-# REACT LOGIN FORM WEB APPLICATION
-# Muhammet Cokyaman
+# REACT-REDUX loginForm 
+### JavaScript-React.js
+### MongoDB
+### Node.Js

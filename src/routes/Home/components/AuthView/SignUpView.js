@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
 import React from 'react'
-import axios from 'axios'
+import * as Http from 'utils/http.helper.js'
 
 class SignUpView extends React.Component {
   constructor () {
@@ -24,19 +24,29 @@ class SignUpView extends React.Component {
   onSignUp (e) {
     e.preventDefault()
 
-    console.log(this.state)
-    const model = this.state
-    // bilgileri API`dan cekmek icin attigmiz HTTP request
-    axios
-      .post('http://localhost:3300/v1/auth/sign-up', model)
-      .then(function (res) {
-        console.log('res', res.data)
+    // girilmemis email ve password icin server`a gitmeden hata mesaji gondermek
+    if (this.state.email === '' || this.state.password === '') {
+      this.setState({
+        hasError: true,
+        errorMessage: ' Lutfen tum alanlari eksiksiz bir sekilde doldurunuz !'
       })
-      .catch(function (error) {
-        console.log(error)
+    } else {
+      // bilgileri API`dan cekmek icin attigmiz HTTP request
+      Http.post('auth/sign-up', this.state).then(res => {
+        console.log(res)
+        // if (!res.status) {
+        //   this.setState({
+        //     hasError: !res.status,
+        //     errorMessage:
+        //       res.error.code === 1100
+        //         ? 'Bu email adresi sistemde kayitli'
+        //         : 'Beklenmeyen hata'
+        //   })
+        // }
       })
+    }
   }
-
+  // burda eger if scopu dogrulanmis ise ekranda cikacak hata mesaji bolgesi!
   renderError () {
     return (
       <div

@@ -2,7 +2,7 @@ import express from 'express'
 import config from '../../config' // bunu boyle yazinca ana dizin src`e gider ama "script" tte bunu belirlemeliyiz NODE_PATH=src diyerekten !!
 import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
-import user from '../models/User'
+import User from '../models/User'
 
 // heryerde kullanilabilen Route func.
 const route = () => {
@@ -26,11 +26,16 @@ const route = () => {
           //--token
           const token = jwt.sign({ userId: user._id }, config.jwttoken)
 
-          user.update({email : email},{
-            $set : {
-              lastLogin : new Date()
-            }
-          }).then(() =>{})
+          user
+            .update(
+              { email: email },
+              {
+                $set: {
+                  lastLogin: new Date()
+                }
+              }
+            )
+            .then(() => {})
           res.send({
             status: true,
             token: token
@@ -46,23 +51,29 @@ const route = () => {
   })
 
   router.route('/sign-up').post((req, res) => {
+    // bu client tarafinda girilen degerler
     const { email, password } = req.body
-    // ===crypto
-    const passwordHash = crypto
-      .createHmac('sha256', config.passcrypto)
-      .update(password)
-      .digest('hex')
 
-    //burda kulaniya degerler atamasi yap.
-    const newUser = new user({
-      email: email, // kullanicidan gelen e-mail
-      password: passwordHash, //kullanicidan gelen sifreyi crypto ile degisirdi
+    const newUser = new User({
+      email : email,
+      password : crypto.createHmac('sha256', config.passcrypto).update(password).digest('hex')
     })
-
-    newUser
-      .save() //burda veri tabanina kullaniciyi kaydediyoruz
-      .then(data => res.send({ status: true, user: data }))
-      .catch(err => res.send({ status: false, error: err }))
+    console.log(email)
+    // burda eger kullanici email adresi daha once girilimis yada girlimemis ise yapilacak islemler
+    User.find({ email : email }).then(data => {
+      console.log(req.body.email)
+      res.send(data)
+      if (data) {
+        res.send({ status: false, error: 'Bu Email Zaten Mevcut !' })
+      } 
+      else {
+        //burda veri tabanina kullaniciyi kaydediyoruz
+        newUser
+          .save()
+          .then(data => res.send({ status: true, user: data }))
+          .catch(err => res.send({ status: false, error: err }))
+      }
+    })
   })
   return router
 }

@@ -24,4 +24,4 @@ const userSchema = new Schema({
   }
 })
 
-export default mongoose.model('user', userSchema) //burdaki user mongo veri tabaninda olusacak collection adidir.
+export default mongoose.model('User', userSchema) //burdaki user mongo veri tabaninda olusacak collection adidir.

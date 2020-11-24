@@ -55,25 +55,18 @@ const route = () => {
     const { email, password } = req.body
 
     const newUser = new User({
-      email : email,
-      password : crypto.createHmac('sha256', config.passcrypto).update(password).digest('hex')
+      email: email,
+      password: crypto
+        .createHmac('sha256', config.passcrypto)
+        .update(password)
+        .digest('hex')
     })
-    console.log(email)
-    // burda eger kullanici email adresi daha once girilimis yada girlimemis ise yapilacak islemler
-    User.find({ email : email }).then(data => {
-      console.log(req.body.email)
-      res.send(data)
-      if (data) {
-        res.send({ status: false, error: 'Bu Email Zaten Mevcut !' })
-      } 
-      else {
-        //burda veri tabanina kullaniciyi kaydediyoruz
-        newUser
-          .save()
-          .then(data => res.send({ status: true, user: data }))
-          .catch(err => res.send({ status: false, error: err }))
-      }
-    })
+
+    //burda veri tabanina kullaniciyi kaydediyoruz
+    newUser
+      .save()
+      .then(data => res.send({ status: true, user: data }))
+      .catch(err => res.send({ status: false, error: err }))
   })
   return router
 }

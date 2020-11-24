@@ -21,7 +21,8 @@ class LoginView extends React.Component {
       age: 21,
       gender: 'male'
     }
-    this.props.loginUserData(user)
+    // burda kullanici bilgilerini redux ile  state aktariyoruz
+    this.props.userInit(user)
   }
   emailChanged (e) {
     this.setState({
@@ -103,7 +104,7 @@ class LoginView extends React.Component {
 // Uygulama durumunun değişmesine neden olabilecek" Action"i göndermenize yarar.
 const mapDispatchToProps = dispatch => {
   return {
-    loginUserData: user => {
+    userInit: user => {
       dispatch(userInit(user)) // action`i guncelleme islemi yapar!
     }
   }

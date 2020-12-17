@@ -1,6 +1,7 @@
-# REACT-REDUX loginForm 
-### JavaScript-React.js
-### MongoDB
-### Node.Js
+# React&Redux&Hooks c-Login Form 
+     JavaScript-React.js
+     MongoDB
+     Node.Js
+     Html5 - Css3 - bootstrap
 
-[npm install] must be used
+### `npm install - npm start `
